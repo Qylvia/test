@@ -22,11 +22,11 @@ def calculate_mean_suv(data):
 import streamlit as st
 import pandas as pd
 
-uploaded_pet = st.file_uploader("Choose a PET nrrd file")
-uploaded_mask = st.file_uploader("Choose a MASk nrrd file")
+pet_path = st.text_input("Choose a PET nrrd file")
+mask_path = st.text_input("Choose a MASk nrrd file")
 
-if uploaded_pet and uploaded_mask is not None:
-    nii_data = read_image(uploaded_pet)
-    roi_mask_data = read_image(uploaded_mask)
+if pet_path and mask_path is not None:
+    nii_data = read_image(pet_path)
+    roi_mask_data = read_image(mask_path)
     roi_data = roi(nii_data, roi_mask_data)
     st.write('SUVmean:', calculate_mean_suv(roi_data))
