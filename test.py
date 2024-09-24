@@ -1,7 +1,7 @@
-import nibabel as nib
+
 import numpy as np
 import nrrd
-from skimage.metrics import mean_squared_error as mse, peak_signal_noise_ratio as psnr, structural_similarity as ssim
+
 
 
 def read_image(path):
