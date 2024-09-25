@@ -1,32 +1,22 @@
 
-import numpy as np
-import nrrd
-
-
-
-def read_image(path):
-    img, options = nrrd.read(path)
-    return img
-
-
-def roi(image_data, mask_data):
-    data = image_data[mask_data > 0]
-    return data
-
-
-def calculate_mean_suv(data):
-    mean_suv = np.mean(data)
-    return mean_suv
-
-
 import streamlit as st
+import joblib
+import numpy as np
 import pandas as pd
+import shap
+import matplotlib.pyplot as plt
 
-pet_path = st.text_input("Choose a PET nrrd file")
-mask_path = st.text_input("Choose a MASk nrrd file")
+uploaded_file = st.file_uploader("请选择文件进行上传", type=None)
 
-if pet_path and mask_path is not None:
-    nii_data = read_image(pet_path)
-    roi_mask_data = read_image(mask_path)
-    roi_data = roi(nii_data, roi_mask_data)
-    st.write('SUVmean:', calculate_mean_suv(roi_data))
+# 检查是否有文件上传
+if uploaded_file is not None:
+    # 读取 CSV 文件
+    df = pd.read_csv(uploaded_file)
+
+    # 读取第一行数据
+    first_row = df.iloc[0]
+
+    # 展示第一行数据
+    st.write("First row of the CSV file:")
+    st.write(first_row)
+
